@@ -1,6 +1,7 @@
 import webbrowser
 import os
 import re
+import cgi
 
 
 # Styles and scripting for the page
@@ -22,8 +23,8 @@ main_page_head = '''
         }
         #trailer .modal-dialog {
             margin-top: 200px;
-            width: 640px;
-            height: 480px;
+            width: 1024px;
+            height: 768px;
         }
         .hanging-close {
             position: absolute;
@@ -115,6 +116,10 @@ main_page_content = '''
     <div class="container">
       {movie_tiles}
     </div>
+    <div>
+        <img src="https://www.themoviedb.org/assets/static_cache/41bdcf10bbf6f84c0fc73f27b2180b95/images/v4/logos/91x81.png" width=50 height=50/>
+        This product uses the TMDb API but is not endorsed or certified by TMDb.
+    </div>
   </body>
 </html>
 '''
@@ -122,9 +127,9 @@ main_page_content = '''
 
 # A single movie entry html template
 movie_tile_content = '''
-<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
+<div title="{movie_storyline}" class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
     <img src="{poster_image_url}" width="220" height="342">
-    <h2>{movie_title}</h2>
+    <h3>{movie_title}</h3>
 </div>
 '''
 
@@ -145,7 +150,8 @@ def create_movie_tiles_content(movies):
         content += movie_tile_content.format(
             movie_title=movie.title,
             poster_image_url=movie.poster_image_url,
-            trailer_youtube_id=trailer_youtube_id
+            trailer_youtube_id=trailer_youtube_id,
+            movie_storyline=cgi.escape(movie.storyline, quote=True)
         )
     return content
 
