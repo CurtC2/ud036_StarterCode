@@ -1,5 +1,6 @@
 import webbrowser
 
+
 class Movie():
     """This class provides a way to store movie related information."""
     
@@ -11,4 +12,5 @@ class Movie():
         self.trailer_youtube_url = trailer_url
     
     def show_trailer(self):
+        """Launch trailer url video"""
         webbrowser.open(self.trailer_youtube_url)

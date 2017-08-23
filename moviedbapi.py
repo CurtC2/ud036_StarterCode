@@ -43,7 +43,9 @@ class MovieDBAPI():
 
     def get_movie_data(self, tmdb_id):
         '''Query the movie DB for the TMDB movie ID passed in.
-           Returns a dictionary of selected info formatted for Movies()'''
+
+           Returns a dictionary of selected info formatted for Movies()
+        '''
 
         # Get the JSON data payload for the movie ID passed in
         conn = httplib.HTTPConnection('api.themoviedb.org')
